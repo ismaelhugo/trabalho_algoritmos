@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define NUMS_NEEDED 1000
+#define NUMS_NEEDED 100000
 
 int main()
 {
