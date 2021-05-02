@@ -79,7 +79,7 @@ int main() {
 
 	initializeStack(&stack);
 
-
+    // popula a pilha com valores aleatórios, todos no range de 1-CAPACIDADE
     for (int i = CAPACIDADE; i > 0; i--) {
         insertIntoStack(&stack, rand() % CAPACIDADE);
     }
