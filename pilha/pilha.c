@@ -1,7 +1,8 @@
 #include <time.h>
+#include <stdlib.h>
 #include <stdio.h>
 
-#define CAPACIDADE 10000000
+#define CAPACIDADE 1000000
 
 struct pilha {
 	int itens[CAPACIDADE];
@@ -54,23 +55,42 @@ int removeFromStack(struct pilha *stack) {
 	}
 }
 
+// virtualmente identico ao bubblesort da lista
+int stackBubbleSort(struct pilha *stack){
+    int i, j = 0;
+
+    for( i = 0; i < stack->topIndex; i++ )
+    {
+        for( j = i + 1; j < stack->topIndex; j++ )
+        {
+            if( stack->itens[i] > stack->itens[j] )
+            {
+                int aux = stack->itens[i];
+                stack->itens[i] = stack->itens[j];
+                stack->itens[j] = aux;
+            }
+        }
+    }
+}
+
 int main() {
 	struct pilha stack;
     clock_t clock_inicial, clock_final;
 
 	initializeStack(&stack);
 
-    clock_inicial = clock();
 
     for (int i = CAPACIDADE; i > 0; i--) {
-        insertIntoStack(&stack, i);
+        insertIntoStack(&stack, rand() % CAPACIDADE);
     }
 
+    clock_inicial = clock();
+    stackBubbleSort(&stack);
     clock_final = clock();
-    printf("Tempo decorrido na população: %lfs. \n", ((float)(clock_final - clock_inicial) / CLOCKS_PER_SEC));
+    printf("Tempo decorrido na ordenação: %lfs. \n", ((float)(clock_final - clock_inicial) / CLOCKS_PER_SEC));
 
     printf("O indice do topo é %d\n", getTopIndex(stack));
-	printf("O topo da pilha é %d\n", getStackTop(stack));
+	printf("O valor do topo da pilha é %d\n", getStackTop(stack));
 
 	return 0;
 }
